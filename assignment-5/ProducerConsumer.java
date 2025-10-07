@@ -45,6 +45,7 @@ class PC {
                         System.out.println("Producing: " + value);
                         buffer.add(value++);
                     }
+                    System.out.println("Buffer is full .... notifying consumer");
                     notifyAll();
                 }
             }
@@ -66,7 +67,7 @@ class PC {
                         int val = buffer.removeFirst();
                         System.out.println("Consumed: " + val);
                     }
-                    System.out.println("Buffer is empty after consuming all items.");
+                    System.out.println("Buffer is empty .... notifying producer");
                     notifyAll();
 
                 }
