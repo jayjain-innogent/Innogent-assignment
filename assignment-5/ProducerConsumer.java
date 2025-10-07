@@ -3,10 +3,11 @@ import java.util.*;
 public class ProducerConsumer {
     public static void main(String[] args) throws InterruptedException {
         PC pc = new PC();
+        int cap = args.length > 0 ? Integer.parseInt(args[0]) : 5;
 
         Thread t1 = new Thread(() -> {
             try {
-                pc.producer(2);
+                pc.producer(cap);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -14,7 +15,7 @@ public class ProducerConsumer {
 
         Thread t2 = new Thread(() -> {
             try {
-                pc.consumer();
+                pc.consumer(cap);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -38,38 +39,41 @@ class PC {
                 synchronized (this) {
 
                     while (buffer.size() >= cap) {
-                        System.out.println("Buffer is full, producer is waiting...");
                         wait();
                     }
-                    System.out.println("Produced: " + value);
-                    buffer.add(value++);
-                    notify();
+                    while (buffer.size() < cap) {
+                        System.out.println("Producing: " + value);
+                        buffer.add(value++);
+                    }
+                    notifyAll();
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Thread.sleep(500);
     }
 
-    public void consumer() throws InterruptedException {
+    public void consumer(int cap) throws InterruptedException {
         try {
             while (true) {
                 synchronized (this) {
 
-                    while (buffer.size() == 0) {
-                        System.out.println("Buffer is empty, consumer is waiting...");
+                    while (buffer.size() < cap) {
                         wait();
                     }
-                    int current_value = buffer.get(0);
-                    System.out.println("Consumed: " + current_value);
-                    buffer.remove(0);
-                    notify();
+                    while (!buffer.isEmpty()) {
+                        int val = buffer.removeFirst();
+                        System.out.println("Consumed: " + val);
+                    }
+                    System.out.println("Buffer is empty after consuming all items.");
+                    notifyAll();
 
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        Thread.sleep(500);
     }
 }
