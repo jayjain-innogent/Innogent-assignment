@@ -2,6 +2,7 @@ import java.util.*;
 
 public class ProducerConsumer {
     public static void main(String[] args) throws InterruptedException {
+
         PC pc = new PC();
         int cap = args.length > 0 ? Integer.parseInt(args[0]) : 5;
 
@@ -32,12 +33,12 @@ public class ProducerConsumer {
 class PC {
     LinkedList<Integer> buffer = new LinkedList<>();
     int value = 0;
-    int limit = 10;
-    int count = 0;
+    int production_Limit = 5; // Number of production cycles
+    // int count = 0;
 
     public void producer(int cap) throws InterruptedException {
         try {
-            while (count <= limit) {
+            while (production_Limit > 0) {
                 synchronized (this) {
 
                     while (buffer.size() >= cap) {
@@ -49,7 +50,7 @@ class PC {
                     }
                     System.out.println("Buffer is full .... notifying consumer");
                     notifyAll();
-                    count++;
+                    production_Limit--;
                 }
             }
         } catch (Exception e) {
@@ -60,7 +61,7 @@ class PC {
 
     public void consumer(int cap) throws InterruptedException {
         try {
-            while (count < limit) {
+            while (production_Limit > 0) {
                 synchronized (this) {
 
                     while (buffer.size() < cap) {
@@ -72,8 +73,6 @@ class PC {
                     }
                     System.out.println("Buffer is empty .... notifying producer");
                     notifyAll();
-                    count++;
-
                 }
             }
         } catch (Exception e) {
