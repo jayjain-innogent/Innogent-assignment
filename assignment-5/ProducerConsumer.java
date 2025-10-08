@@ -32,10 +32,12 @@ public class ProducerConsumer {
 class PC {
     LinkedList<Integer> buffer = new LinkedList<>();
     int value = 0;
+    int limit = 10;
+    int count = 0;
 
     public void producer(int cap) throws InterruptedException {
         try {
-            while (true) {
+            while (count <= limit) {
                 synchronized (this) {
 
                     while (buffer.size() >= cap) {
@@ -47,6 +49,7 @@ class PC {
                     }
                     System.out.println("Buffer is full .... notifying consumer");
                     notifyAll();
+                    count++;
                 }
             }
         } catch (Exception e) {
@@ -57,7 +60,7 @@ class PC {
 
     public void consumer(int cap) throws InterruptedException {
         try {
-            while (true) {
+            while (count < limit) {
                 synchronized (this) {
 
                     while (buffer.size() < cap) {
@@ -69,6 +72,7 @@ class PC {
                     }
                     System.out.println("Buffer is empty .... notifying producer");
                     notifyAll();
+                    count++;
 
                 }
             }
