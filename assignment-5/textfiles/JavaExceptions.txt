@@ -1,0 +1,5 @@
+Exceptions in Java are events that disrupt normal program flow.
+Checked exceptions must be handled or declared in the method signature.
+Unchecked exceptions (RuntimeExceptions) do not require explicit handling.
+Try-catch blocks are used to handle exceptions.
+Finally block executes regardless of exception occurrence.

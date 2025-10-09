@@ -1,0 +1,4 @@
+Java is a high-level, class-based, object-oriented programming language.
+It is platform-independent due to JVM (Java Virtual Machine).
+Java supports concepts like inheritance, encapsulation, and polymorphism.
+The main method is the entry point of a Java program.

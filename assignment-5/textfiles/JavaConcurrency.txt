@@ -1,0 +1,4 @@
+ExecutorService manages a pool of threads for asynchronous task execution.
+Callable interface can return a result and throw exceptions.
+Runnable interface represents a task that does not return a result.
+Future interface represents the result of an asynchronous computation.

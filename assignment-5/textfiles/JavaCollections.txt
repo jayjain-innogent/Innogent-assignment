@@ -1,0 +1,4 @@
+Collections framework includes List, Set, Queue, and Map interfaces.
+ArrayList allows dynamic resizing and permits duplicate elements.
+HashSet stores unique elements with no guaranteed order.
+HashMap stores key-value pairs and allows fast retrieval.
