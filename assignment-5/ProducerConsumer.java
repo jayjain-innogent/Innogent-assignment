@@ -27,6 +27,7 @@ public class ProducerConsumer {
 
         t1.join();
         t2.join();
+        
     }
 }
 
