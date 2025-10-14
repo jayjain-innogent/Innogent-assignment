@@ -1,17 +1,17 @@
 package com.example.students.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Generated;
 
 @Entity(name = "STUDENT")
 @Table
 @Data
 public class Student {
     @Id
-    int id;
-    String name;
-    String email;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private String name;
+    private String email;
 
 }

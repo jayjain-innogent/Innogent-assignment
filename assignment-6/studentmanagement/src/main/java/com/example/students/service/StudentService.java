@@ -1,42 +1,50 @@
 package com.example.students.service;
 
 
+import com.example.students.doa.StudentDeo;
 import com.example.students.entity.Student;
-import com.example.students.repository.StudentRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
+
 public class StudentService {
+    private final StudentDeo studentDeo;
 
     @Autowired
-    StudentRepo studentRepo ;
-
-    public Student create(Student s){
-     return studentRepo.save(s);
+    public StudentService(StudentDeo studentDeo){
+        this.studentDeo = studentDeo;
     }
 
-    public Student update(Student s, Integer id){
+    @Transactional
+    public void create(Student s){
+        studentDeo.save(s);
+    }
 
-        Student new_s = studentRepo.findById(id).get();
-        new_s.setId(id);
-        new_s.setName(s.getName());
-        new_s.setEmail(s.getEmail());
-        return studentRepo.save(new_s);
+    @Transactional
+    public void update(Student s, Integer id){
+          studentDeo.update(s, id);
+    }
+
+    public void delete(Integer id){
+        studentDeo.delete(id);
     }
 
     public Object studentList(){
-        List<Student> students = new ArrayList<>();
-        students = studentRepo.findAll();
-        return students;
+        return studentDeo.findAll();
+    }
+
+    public Optional<Student> findById(Integer id){
+        return studentDeo.findById(id);
 
     }
 
-    public void deleteData(Integer id){
-        studentRepo.deleteById(id);
+    public List<Student> findByName(String name){
+        return studentDeo.findByName(name);
     }
 }
