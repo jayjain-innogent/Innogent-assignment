@@ -1,7 +1,12 @@
 package com.example.students.controller;
 
-import com.example.students.entity.Student;
-import com.example.students.service.StudentService;
+import com.example.students.dto.StudentDto;
+import com.example.students.dto.StudentRequestDto;
+//import com.example.students.entity.Student;
+//import com.example.students.service.StudentService;
+//import com.example.students.mapper.StudentMapper;
+//import com.example.students.repository.StudentRepo;
+import com.example.students.service.StudentServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,55 +19,87 @@ import java.util.Optional;
 
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/api/student")
 public class StudentController {
 
 
 
     @Autowired
-    private StudentService studentService;
+    private StudentServices studentServices;
     @Autowired
     private PathMatcher pathMatcher;
 
+    //SERVER TESTING
     @GetMapping("/ping")
     public ResponseEntity<String> ping(){
         return ResponseEntity.ok("Server is running");
     }
 
-    @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody Student student){
-        studentService.create(student);
-        return ResponseEntity.ok("Created");
+    //CREATEING STUDENT WITH COURSE ID
+    @PostMapping("/create/{id}")
+    public ResponseEntity<StudentDto> create(@RequestBody StudentRequestDto student, @PathVariable Long id){
+        StudentDto std = studentServices.createStudent(student,id);
+        return new ResponseEntity<>(std, HttpStatus.CREATED);
     }
 
+    //UPDATING STUDENT BY ID
     @PutMapping("/update/{id}")
-    public ResponseEntity<String> update(@RequestBody Student s, @PathVariable Integer id){
-        studentService.update(s, id);
+    public ResponseEntity<String> update(@RequestBody StudentDto s, @PathVariable Long id){
+        studentServices.updateStd(s, id);
         return ResponseEntity.ok("Updated");
     }
 
+     //FETCH ALL THE STUDENT WITH COURSE DETAIL
     @GetMapping("/studentslist")
-    public ResponseEntity<Object> getStudent(){
-        Object students = studentService.studentList();
-        return ResponseEntity.ok(students);
+    public ResponseEntity<List<StudentDto>> getStudent(){
+        return new ResponseEntity<>(studentServices.studentList(), HttpStatus.OK);
     }
-
+//
+     //DELETING SUTUDENT BY ID
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void delete(@PathVariable Integer id){
-        studentService.delete(id);
+    public ResponseEntity<String> delete(@PathVariable Long id){
+        studentServices.deleteById(id);
+        return ResponseEntity.ok("Deleted " + id);
     }
 
-    @GetMapping("/findById/{id}")
-    public ResponseEntity<Optional> findById(@PathVariable Integer id){
-        Optional<Student> data = studentService.findById(id);
-        return ResponseEntity.ok(data);
+    //FIND STUDENT BY ID
+    @GetMapping("/find-by-id/{id}")
+    public ResponseEntity<StudentDto> findById(@PathVariable Long id){
+        return new ResponseEntity<>(studentServices.findById(id), HttpStatus.OK);
     }
 
-    @GetMapping("/findByName/{name}")
-    public ResponseEntity<List> findByName(@PathVariable String name){
-        List<Student> data = studentService.findByName(name);
-        return ResponseEntity.ok(data);
 
+
+    @GetMapping("/getStudentByCourseId/{id}")
+    public List<StudentDto> findStudentsByCourseId(@PathVariable Long id){
+        return studentServices.findStudentsByCourseId(id);
+        }
+
+    //Find Student BY first NAME
+    @GetMapping("/find-by-first-name")
+    public ResponseEntity<List<StudentDto>> findByFirstName(@RequestParam String name){
+        return new ResponseEntity<>(studentServices.findByName(name), HttpStatus.OK);
+    }
+
+
+    //FIND STUDENT BY CITY AND INSTRUCTOR
+    @GetMapping("/find-std-by-city-and-instructor")
+    public ResponseEntity<List<StudentDto>> findStudentsByCityAndInstructor(
+            @RequestParam String city,
+            @RequestParam String instructor){
+        return new ResponseEntity<>(studentServices.findStdByCityAndInstructor(city, instructor), HttpStatus.OK);
+    }
+
+    // STUDENT WITHOUT ANY COURSE
+    @GetMapping("/get-student-without-course")
+    public ResponseEntity<List<StudentDto>> findStudentWithoutCourse(){
+        return new ResponseEntity<>(studentServices.findStudentWithoutCourse(),HttpStatus.OK);
+    }
+
+    //FIND STUDENT BY COURSE NAME
+    @GetMapping("/get-student-with-course-name")
+    public ResponseEntity<List<StudentDto>> findStudentWithCourseName(@RequestParam String name){
+        return new ResponseEntity<>(studentServices.findStudentWithCourseName(name),HttpStatus.OK);
     }
 }
