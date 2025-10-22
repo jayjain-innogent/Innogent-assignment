@@ -1,9 +1,9 @@
 package com.example.students.controller;
 
 import com.example.students.dto.CourseNameWithStudentCount;
+import com.example.students.dto.CourseRequestDto;
 import com.example.students.dto.CourseResponseDto;
 import com.example.students.dto.CourseWithStudentCountDto;
-import com.example.students.entity.Course;
 import com.example.students.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,7 +21,7 @@ public class CourseController {
 
     //CREATE
     @PostMapping("/create")
-    public void create(@RequestBody Course course){
+    public void create(@RequestBody CourseRequestDto course){
         courseService.createCourse(course);
     }
 
@@ -33,8 +33,8 @@ public class CourseController {
 
     //GET TOP COURSES
     @GetMapping("/gettop/{n}")
-    public List<CourseWithStudentCountDto> getTopNCourses(@PathVariable int n){
-        return courseService.getTopCourse(n);
+    public ResponseEntity<List<CourseWithStudentCountDto>> getTopNCourses(@PathVariable int n){
+        return new ResponseEntity<>(courseService.getTopCourse(n), HttpStatus.OK);
     }
 
     //Fetch All Course Data
@@ -56,7 +56,7 @@ public class CourseController {
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id){
         courseService.deleteById(id);
-        return ResponseEntity.ok("Student deleted successfully");
+        return ResponseEntity.ok("Course deleted successfully");
     }
 
     //GET COURSE WITH NO ENROLLMENTS

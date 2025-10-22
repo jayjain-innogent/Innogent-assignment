@@ -7,6 +7,7 @@ import com.example.students.dto.StudentRequestDto;
 import com.example.students.entity.Course;
 import com.example.students.entity.Student;
 import com.example.students.mapper.StudentMapper;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,7 @@ public class StudentServices {
     @Autowired
     private StudentDao studentDao;
 
+    @Transactional
     public StudentDto createStudent(StudentRequestDto student, Long id){
         Course course = studentDao.findCourseById(id);
         student.setCourse(course);
@@ -39,6 +41,7 @@ public class StudentServices {
     }
 
     //UPDATE STUDENTS USING ID
+    @Transactional
     public StudentDto updateStd(StudentDto studentDto,Long id){
         Student std = studentDao.findById(id);
         if (studentDto.getCity() != null){
@@ -64,6 +67,7 @@ public class StudentServices {
         return student_dto;
     }
 
+    @Transactional
     //DElETE THE STUDENT BY ID
     public void deleteById(Long id){
         studentDao.deleteStudentById(id);

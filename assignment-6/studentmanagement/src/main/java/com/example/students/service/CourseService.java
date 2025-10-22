@@ -2,11 +2,13 @@ package com.example.students.service;
 
 import com.example.students.doa.CourseDao;
 import com.example.students.dto.CourseNameWithStudentCount;
+import com.example.students.dto.CourseRequestDto;
 import com.example.students.dto.CourseResponseDto;
 import com.example.students.dto.CourseWithStudentCountDto;
 import com.example.students.entity.Course;
 import com.example.students.mapper.CourseMapper;
 import com.example.students.repository.CourseRepo;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,16 +21,21 @@ public  class CourseService {
     @Autowired
     private CourseDao courseDao;
 
-    public void createCourse(Course course){
+    @Transactional
+    public void createCourse(CourseRequestDto courseDto){
+
+        Course course = CourseMapper.mapToCourse(courseDto);
         courseDao.createCourse(course);
     }
 
     //Get Course Details with students count
+
     public List<CourseWithStudentCountDto> getCourseAndStdCnt(){
         return courseDao.getStudentCount();
     }
 
     //Get the top n Course
+
     public List<CourseWithStudentCountDto> getTopCourse(int n){
         return courseDao.getTopNCourses(n);
     }
@@ -44,12 +51,8 @@ public  class CourseService {
         return responseData;
     }
 
-//    //Delete Data by Id
-//    public CourseResponseDto deleteById(Long id){
-//
-//    }
-
     //Update Student By Id
+    @Transactional
     public CourseResponseDto updateById(CourseResponseDto courseResponseDto, Long id){
         Course course = courseDao.findById(id);
 

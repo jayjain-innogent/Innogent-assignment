@@ -1,5 +1,6 @@
 package com.example.students.mapper;
 
+import com.example.students.dto.CourseRequestDto;
 import com.example.students.dto.CourseResponseDto;
 import com.example.students.dto.CourseWithStudentCountDto;
 import com.example.students.entity.Course;
@@ -27,6 +28,14 @@ public class CourseMapper {
                 .courseId(courseResponseDto.getId())
                 .courseName(courseResponseDto.getName())
                 .instructor(courseResponseDto.getInstructor())
+                .build();
+    }
+
+    public static  Course mapToCourse(CourseRequestDto courseDto){
+        return Course.builder()
+                .courseName(courseDto.getCourseName())
+                .instructor(courseDto.getInstructor())
+                .description(courseDto.getDescription())
                 .build();
     }
 
