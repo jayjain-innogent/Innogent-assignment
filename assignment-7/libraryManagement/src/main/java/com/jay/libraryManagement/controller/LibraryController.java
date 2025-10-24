@@ -23,13 +23,8 @@ public class LibraryController {
         return new ResponseEntity<>(message, HttpStatus.OK);
     }
 
-    @PostMapping("/borrow-list")
-    public ResponseEntity<List<String>> multiBorrow(@RequestBody List<LibraryTransactionDto> borrows){
-        List<String> message = libraryService.borrowBooks(borrows);
-        return new ResponseEntity<>(message, HttpStatus.OK);
-    }
 
-    @PostMapping("/return")
+    @PostMapping("/return-book")
     public ResponseEntity<String> returnBook(@RequestBody LibraryTransactionDto returned){
         String message = libraryService.returnBook(returned);
         return new ResponseEntity<>(message, HttpStatus.OK);

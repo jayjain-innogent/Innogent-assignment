@@ -1,6 +1,7 @@
 package com.jay.libraryManagement.controller;
 
 import com.jay.libraryManagement.dto.AuthorRequestDto;
+import com.jay.libraryManagement.dto.AuthorResponseDto;
 import com.jay.libraryManagement.dto.AuthorResponseWithoutBooks;
 import com.jay.libraryManagement.service.impl.AuthorServiceImpl;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/author")
+@RequestMapping("/api/authors")
 public class AuthorController {
 
     private AuthorServiceImpl authorService;
@@ -37,6 +38,12 @@ public class AuthorController {
     @PutMapping("/update/{id}")
     public ResponseEntity<AuthorResponseWithoutBooks> updateDataById(@RequestBody AuthorRequestDto author,@PathVariable Long id){
         return new ResponseEntity<>(authorService.updateDataById(author, id), HttpStatus.OK);
+    }
+
+    // Get all books along with their author details
+    @GetMapping("/get-author-and-books")
+    public ResponseEntity<List<AuthorResponseDto>> fetchDataWithBook(){
+        return new ResponseEntity<>(authorService.fetchDataWithBook(), HttpStatus.OK);
     }
 
 }

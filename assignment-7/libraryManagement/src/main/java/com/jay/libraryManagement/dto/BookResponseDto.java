@@ -5,7 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+
 
 @Getter
 @Setter
@@ -14,6 +14,6 @@ import java.util.List;
 public class BookResponseDto {
     private Long id;
     private String title;
-    private List<AuthorResponseWithoutBooks> books;
+
 }
 

@@ -2,6 +2,7 @@ package com.jay.libraryManagement.dao.impl;
 
 import com.jay.libraryManagement.dao.AuthorDao;
 import com.jay.libraryManagement.dto.AuthorRequestDto;
+import com.jay.libraryManagement.dto.AuthorResponseDto;
 import com.jay.libraryManagement.entity.Author;
 import com.jay.libraryManagement.exception.NoDataFoundException;
 import com.jay.libraryManagement.exception.ResourceNotFoundException;
@@ -62,5 +63,9 @@ public class AuthorDaoImpl implements AuthorDao {
         return authorRepository.findById(id).get();
     };
 
+    // Get all books along with their author details
+    public List<Author> fetchDataWithBook(){
+        return authorRepository.fetchDataWithBook();
+    }
 
 }

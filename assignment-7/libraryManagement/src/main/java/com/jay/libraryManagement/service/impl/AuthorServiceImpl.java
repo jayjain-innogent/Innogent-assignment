@@ -2,8 +2,10 @@ package com.jay.libraryManagement.service.impl;
 
 import com.jay.libraryManagement.dao.impl.AuthorDaoImpl;
 import com.jay.libraryManagement.dto.AuthorRequestDto;
+import com.jay.libraryManagement.dto.AuthorResponseDto;
 import com.jay.libraryManagement.dto.AuthorResponseWithoutBooks;
 import com.jay.libraryManagement.entity.Author;
+import com.jay.libraryManagement.exception.NoDataFoundException;
 import com.jay.libraryManagement.mapper.AuthorMapper;
 import com.jay.libraryManagement.service.AuthorService;
 import jakarta.transaction.Transactional;
@@ -55,4 +57,22 @@ public class AuthorServiceImpl implements AuthorService {
         Author data = authorDao.updateDataById(author, id);
         return AuthorMapper.mapToAuthorResponseWithoutBook(data);
     }
+
+    // Get all books along with their author details
+    public List<AuthorResponseDto> fetchDataWithBook(){
+        List<Author> authors = authorDao.fetchDataWithBook();
+
+        if (authors.isEmpty()){
+            throw new NoDataFoundException("No Record Found");
+        }
+
+        List<AuthorResponseDto> responses = new ArrayList<>();
+
+        for(Author a: authors){
+            AuthorResponseDto dto = AuthorMapper.mapToAuthorResponse(a);
+            responses.add(dto);
+        }
+        return responses;
+    }
+
 }

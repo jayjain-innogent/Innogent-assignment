@@ -32,9 +32,13 @@ public class LibraryServiceImpl implements LibraryService {
     @Transactional
     @Override
     public String borrowBook(LibraryTransactionDto borrow){
+
+        //Fetaching Data
+
         Member member = memberDoa.fetchDataById(borrow.getMemberId());
         Book book = bookDoa.fetchDataById(borrow.getBookId());
 
+        //Checking Null values
         if (member == null) {
             throw new ResourceNotFoundException("Member not found with id: " + borrow.getMemberId());
         }
@@ -42,16 +46,20 @@ public class LibraryServiceImpl implements LibraryService {
             throw new ResourceNotFoundException("Book not found with id: " + borrow.getBookId());
         }
 
+        //Checking if member have already this book
         if(member.getBorrowedBooks().contains(book)){
             return "This Book is Already Borrowed id: " + member.getId();
-
         }
+
+        //Checking book stocks
         if (book.getStock() < 1){
             throw new InsufficientStockException("Book "+book.getTitle()+" is out of stocks");
         }
 
+        //Dec Stocks
         book.setStock(book.getStock()-1);
 
+        //Adding the book in member BorroweBokes
         member.getBorrowedBooks().add(book);
 
         bookDoa.createBook(book);
@@ -110,6 +118,7 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     @Transactional
     public String returnBook(LibraryTransactionDto returnBook){
+
         Member member = memberDoa.fetchDataById(returnBook.getMemberId());
         Book book = bookDoa.fetchDataById(returnBook.getBookId());
 

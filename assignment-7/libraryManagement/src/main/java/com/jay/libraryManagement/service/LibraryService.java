@@ -1,5 +1,7 @@
 package com.jay.libraryManagement.service;
 
+import com.jay.libraryManagement.dto.AuthorRequestDto;
+import com.jay.libraryManagement.dto.AuthorResponseDto;
 import com.jay.libraryManagement.dto.LibraryTransactionDto;
 import jakarta.transaction.Transactional;
 
@@ -15,4 +17,6 @@ public interface LibraryService {
 
     @Transactional
     public String returnBook(LibraryTransactionDto libraryTransactionDto);
+
+
 }

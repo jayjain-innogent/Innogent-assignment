@@ -15,5 +15,5 @@ import java.util.List;
 public class AuthorResponseDto {
     private Long id;
     private String Name;
-    private List<Book> books;
+    private List<String> bookName;
 }
