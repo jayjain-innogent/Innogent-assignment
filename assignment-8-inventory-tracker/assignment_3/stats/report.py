@@ -19,7 +19,7 @@ def show_stats(products):
 
         print("\nTotal Value per Product:")
         for p, val in zip(products, values):
-            print(f"  {p.name:<25} ₹{val:.2f}")
+            print(f"  {p.name} ₹{val:.2f}")
 
         # Tag-specific stats
         tag = input("\nEnter a tag to filter (e.g., 'clearance'): ").strip()
