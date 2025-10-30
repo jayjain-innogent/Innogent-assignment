@@ -1,0 +1,140 @@
+2025-10-30 14:32:36,072 [INFO] SELECT DATABASE()
+2025-10-30 14:32:36,073 [INFO] [raw sql] {}
+2025-10-30 14:32:36,075 [INFO] SELECT @@sql_mode
+2025-10-30 14:32:36,076 [INFO] [raw sql] {}
+2025-10-30 14:32:36,078 [INFO] SELECT @@lower_case_table_names
+2025-10-30 14:32:36,080 [INFO] [raw sql] {}
+2025-10-30 14:32:36,083 [INFO] BEGIN (implicit)
+2025-10-30 14:32:36,084 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 14:32:36,089 [INFO] [raw sql] {}
+2025-10-30 14:32:36,093 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 14:32:36,094 [INFO] [raw sql] {}
+2025-10-30 14:32:36,100 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 14:32:36,104 [INFO] [raw sql] {}
+2025-10-30 14:32:36,107 [INFO] COMMIT
+2025-10-30 14:33:25,711 [INFO] SELECT DATABASE()
+2025-10-30 14:33:25,711 [INFO] [raw sql] {}
+2025-10-30 14:33:25,714 [INFO] SELECT @@sql_mode
+2025-10-30 14:33:25,715 [INFO] [raw sql] {}
+2025-10-30 14:33:25,718 [INFO] SELECT @@lower_case_table_names
+2025-10-30 14:33:25,727 [INFO] [raw sql] {}
+2025-10-30 14:33:25,731 [INFO] BEGIN (implicit)
+2025-10-30 14:33:25,737 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 14:33:25,777 [INFO] [raw sql] {}
+2025-10-30 14:33:25,784 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 14:33:25,785 [INFO] [raw sql] {}
+2025-10-30 14:33:25,789 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 14:33:25,791 [INFO] [raw sql] {}
+2025-10-30 14:33:25,793 [INFO] COMMIT
+2025-10-30 14:34:30,877 [INFO] SELECT DATABASE()
+2025-10-30 14:34:30,878 [INFO] [raw sql] {}
+2025-10-30 14:34:30,880 [INFO] SELECT @@sql_mode
+2025-10-30 14:34:30,881 [INFO] [raw sql] {}
+2025-10-30 14:34:30,883 [INFO] SELECT @@lower_case_table_names
+2025-10-30 14:34:30,884 [INFO] [raw sql] {}
+2025-10-30 14:34:30,886 [INFO] BEGIN (implicit)
+2025-10-30 14:34:30,888 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 14:34:30,890 [INFO] [raw sql] {}
+2025-10-30 14:34:30,894 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 14:34:30,895 [INFO] [raw sql] {}
+2025-10-30 14:34:30,898 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 14:34:30,900 [INFO] [raw sql] {}
+2025-10-30 14:34:30,904 [INFO] COMMIT
+2025-10-30 14:35:31,956 [INFO] SELECT DATABASE()
+2025-10-30 14:35:31,957 [INFO] [raw sql] {}
+2025-10-30 14:35:31,959 [INFO] SELECT @@sql_mode
+2025-10-30 14:35:31,960 [INFO] [raw sql] {}
+2025-10-30 14:35:31,962 [INFO] SELECT @@lower_case_table_names
+2025-10-30 14:35:31,963 [INFO] [raw sql] {}
+2025-10-30 14:35:31,968 [INFO] BEGIN (implicit)
+2025-10-30 14:35:31,971 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 14:35:31,972 [INFO] [raw sql] {}
+2025-10-30 14:35:31,976 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 14:35:31,976 [INFO] [raw sql] {}
+2025-10-30 14:35:31,981 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 14:35:31,982 [INFO] [raw sql] {}
+2025-10-30 14:35:31,988 [INFO] COMMIT
+2025-10-30 15:24:39,050 [INFO] SELECT DATABASE()
+2025-10-30 15:24:39,051 [INFO] [raw sql] {}
+2025-10-30 15:24:39,055 [INFO] SELECT @@sql_mode
+2025-10-30 15:24:39,056 [INFO] [raw sql] {}
+2025-10-30 15:24:39,060 [INFO] SELECT @@lower_case_table_names
+2025-10-30 15:24:39,061 [INFO] [raw sql] {}
+2025-10-30 15:24:39,064 [INFO] BEGIN (implicit)
+2025-10-30 15:24:39,065 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 15:24:39,069 [INFO] [raw sql] {}
+2025-10-30 15:24:39,092 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 15:24:39,095 [INFO] [raw sql] {}
+2025-10-30 15:24:39,100 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 15:24:39,102 [INFO] [raw sql] {}
+2025-10-30 15:24:39,108 [INFO] COMMIT
+2025-10-30 15:24:45,661 [INFO] SELECT DATABASE()
+2025-10-30 15:24:45,663 [INFO] [raw sql] {}
+2025-10-30 15:24:45,665 [INFO] SELECT @@sql_mode
+2025-10-30 15:24:45,666 [INFO] [raw sql] {}
+2025-10-30 15:24:45,669 [INFO] SELECT @@lower_case_table_names
+2025-10-30 15:24:45,672 [INFO] [raw sql] {}
+2025-10-30 15:24:45,674 [INFO] BEGIN (implicit)
+2025-10-30 15:24:45,675 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 15:24:45,676 [INFO] [raw sql] {}
+2025-10-30 15:24:45,686 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 15:24:45,688 [INFO] [raw sql] {}
+2025-10-30 15:24:45,692 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 15:24:45,693 [INFO] [raw sql] {}
+2025-10-30 15:24:45,698 [INFO] COMMIT
+2025-10-30 15:24:53,184 [INFO] SELECT DATABASE()
+2025-10-30 15:24:53,185 [INFO] [raw sql] {}
+2025-10-30 15:24:53,188 [INFO] SELECT @@sql_mode
+2025-10-30 15:24:53,190 [INFO] [raw sql] {}
+2025-10-30 15:24:53,193 [INFO] SELECT @@lower_case_table_names
+2025-10-30 15:24:53,194 [INFO] [raw sql] {}
+2025-10-30 15:24:53,198 [INFO] BEGIN (implicit)
+2025-10-30 15:24:53,201 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 15:24:53,202 [INFO] [raw sql] {}
+2025-10-30 15:24:53,211 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 15:24:53,211 [INFO] [raw sql] {}
+2025-10-30 15:24:53,215 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 15:24:53,216 [INFO] [raw sql] {}
+2025-10-30 15:24:53,220 [INFO] COMMIT
+2025-10-30 15:25:58,872 [INFO] SELECT DATABASE()
+2025-10-30 15:25:58,876 [INFO] [raw sql] {}
+2025-10-30 15:25:58,880 [INFO] SELECT @@sql_mode
+2025-10-30 15:25:58,881 [INFO] [raw sql] {}
+2025-10-30 15:25:58,883 [INFO] SELECT @@lower_case_table_names
+2025-10-30 15:25:58,885 [INFO] [raw sql] {}
+2025-10-30 15:25:58,887 [INFO] BEGIN (implicit)
+2025-10-30 15:25:58,892 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 15:25:58,895 [INFO] [raw sql] {}
+2025-10-30 15:25:58,913 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 15:25:58,915 [INFO] [raw sql] {}
+2025-10-30 15:25:58,919 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 15:25:58,919 [INFO] [raw sql] {}
+2025-10-30 15:25:58,925 [INFO] COMMIT
+2025-10-30 15:27:32,141 [INFO] SELECT DATABASE()
+2025-10-30 15:27:32,146 [INFO] [raw sql] {}
+2025-10-30 15:27:32,149 [INFO] SELECT @@sql_mode
+2025-10-30 15:27:32,150 [INFO] [raw sql] {}
+2025-10-30 15:27:32,153 [INFO] SELECT @@lower_case_table_names
+2025-10-30 15:27:32,153 [INFO] [raw sql] {}
+2025-10-30 15:27:32,156 [INFO] BEGIN (implicit)
+2025-10-30 15:27:32,157 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 15:27:32,162 [INFO] [raw sql] {}
+2025-10-30 15:27:32,177 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 15:27:32,178 [INFO] [raw sql] {}
+2025-10-30 15:27:32,184 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 15:27:32,185 [INFO] [raw sql] {}
+2025-10-30 15:27:32,189 [INFO] COMMIT
+2025-10-30 15:35:17,065 [INFO] SELECT DATABASE()
+2025-10-30 15:35:17,066 [INFO] [raw sql] {}
+2025-10-30 15:35:17,068 [INFO] SELECT @@sql_mode
+2025-10-30 15:35:17,069 [INFO] [raw sql] {}
+2025-10-30 15:35:17,072 [INFO] SELECT @@lower_case_table_names
+2025-10-30 15:35:17,076 [INFO] [raw sql] {}
+2025-10-30 15:35:17,079 [INFO] BEGIN (implicit)
+2025-10-30 15:35:17,079 [INFO] DESCRIBE `product_db`.`products`
+2025-10-30 15:35:17,080 [INFO] [raw sql] {}
+2025-10-30 15:35:17,088 [INFO] DESCRIBE `product_db`.`companies`
+2025-10-30 15:35:17,089 [INFO] [raw sql] {}
+2025-10-30 15:35:17,100 [INFO] DESCRIBE `product_db`.`categories`
+2025-10-30 15:35:17,101 [INFO] [raw sql] {}
+2025-10-30 15:35:17,104 [INFO] COMMIT

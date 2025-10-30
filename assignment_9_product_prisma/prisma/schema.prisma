@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  products  Product[]
+}
+
+model Category {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  products  Product[]
+}
+
+model Product {
+  id          Int       @id @default(autoincrement())
+  name        String
+  price       Float
+  companyId   Int   @map(companyId)
+  categoryId  Int   @map("categoryId)
+  company     Company   @relation(fields: [companyId], references: [id])
+  category    Category  @relation(fields: [categoryId], references: [id])
+
+
+  @@unique([name, companyId])
+}
