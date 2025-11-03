@@ -32,6 +32,7 @@ public class StudentService implements StudentRepository {
         updateRanks();
     }
 
+    //Get all students
     public List<Student> getAllStudents() {
         return students;
     }
@@ -49,6 +50,7 @@ public class StudentService implements StudentRepository {
         }
     }
 
+
     // Save all students to a CSV file
     public void saveToFile(String filename) throws IOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filename))) {
@@ -59,10 +61,11 @@ public class StudentService implements StudentRepository {
 
     // Load all students from a CSV file
     public void loadFromFile(String filename) throws IOException {
-        students.clear();
+
         File file = new File(filename);
         if (!file.exists())
             return;
+        students.clear();
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -70,12 +73,18 @@ public class StudentService implements StudentRepository {
                 if (p.length < 8)
                     continue; // ignore malformed lines
                 Student s = new Student(
-                        Integer.parseInt(p[0]), p[1], Integer.parseInt(p[2]),
-                        Integer.parseInt(p[3]), p[4], Integer.parseInt(p[5]));
-                s.setStatus(p[6]);
-                s.setRank(Integer.parseInt(p[7]));
+                        Integer.parseInt(p[0]),  // id
+                        p[1],                    // name
+                        Integer.parseInt(p[2]),  // age
+                        Integer.parseInt(p[3]),  // marks
+                        p[4],                    // course
+                        Integer.parseInt(p[5])   // year
+                );
+                s.setStatus(p[6]);  //Status
+                s.setRank(Integer.parseInt(p[7])); //Rank
                 students.add(s);
             }
         }
     }
 }
+
