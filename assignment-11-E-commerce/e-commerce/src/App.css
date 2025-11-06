@@ -1,0 +1,289 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* Header main container */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  width: 100%;
+  background-color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Left section - logo */
+.header-left .header-logo {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.header-left h1 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+/* Right section - icons */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Icons style */
+.header-icon {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.2s ease;
+}
+
+/* Hover effect for icons */
+.header-icon:hover {
+  transform: scale(1.15);
+  filter: brightness(0) saturate(100%) invert(38%) sepia(78%) saturate(1263%) hue-rotate(204deg) brightness(95%) contrast(101%);
+}
+
+/* Active route icon effect */
+.active-link .header-icon {
+  filter: brightness(0) saturate(100%) invert(27%) sepia(93%) saturate(5005%) hue-rotate(204deg) brightness(97%) contrast(101%);
+  transform: scale(1.1);
+}
+
+/* Responsive header adjustments for small screens */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+  }
+
+  .header-left h1 {
+    font-size: 1.3rem;
+  }
+
+  .header-right {
+    gap: 15px;
+  }
+
+  .header-icon {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+
+.products-list {
+  padding: 20px;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 50px;
+}
+
+.product-card {
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.product-image {
+  width: 100px;
+  height: 120px;
+  object-fit: contain;
+}
+
+.product-rating {
+  margin-top: 5px;
+  font-size: 14px;
+  color: #333;
+}
+
+.product-details {
+  display: flex;
+  gap: 40px;
+  padding: 30px;
+}
+
+.product-details-left {
+  flex: 1;
+  text-align: center;
+}
+
+.product-details-image {
+  width: 250px;
+  height: 300px;
+  object-fit: contain;
+}
+
+.product-details-right {
+  flex: 2;
+}
+
+.product-category {
+  font-style: italic;
+  color: #555;
+}
+
+.product-description {
+  margin: 15px 0;
+  color: #444;
+  line-height: 1.4;
+}
+
+.product-price {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.product-rating {
+  margin-top: 10px;
+  color: #ff9800;
+  font-weight: 500;
+}
+
+.status-message {
+  text-align: center;
+  padding: 30px;
+  font-size: 18px;
+}
+
+.status-message.error {
+  color: red;
+}
+
+.status-message.loading {
+  color: #555;
+}
+
+.status-message.not-found {
+  color: #777;
+}
+
+.active-link {
+  border-bottom: 2px solid #007bff;
+  border-radius: 2px;
+}
+
+/* Fixed small typo in transform property */
+.header-icon:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+.category-btn.active {
+  background-color: #007bff;
+  color: white;
+  border-color: #007bff;
+}
+
+.search-bar {
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.search-input {
+  width: 60%;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+/* Category button styling */
+.category-btn {
+  padding: 8px 18px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  background-color: #fff;
+  color: #333;
+  font-size: 15px;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Hover effect for category button */
+.category-btn:hover {
+  background-color: #f0f0f0;
+  border-color: #aaa;
+  transform: scale(1.05);
+}
+
+/* Active category button */
+.category-btn.active {
+  background-color: #007bff;
+  color: #fff;
+  border-color: #007bff;
+  font-weight: 500;
+  box-shadow: 0 2px 6px rgba(0, 123, 255, 0.3);
+  transform: scale(1.08);
+}
+
+/* Mobile responsive category button */
+@media (max-width: 600px) {
+  .category-btn {
+    padding: 6px 14px;
+    font-size: 14px;
+  }
+}
+
+.custom-text-color {
+  color: #e2e1e1;
+  /* any color you want */
+}
