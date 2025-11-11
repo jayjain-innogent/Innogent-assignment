@@ -287,3 +287,178 @@
   color: #e2e1e1;
   /* any color you want */
 }
+
+.dropdown-toggle::after {
+  display: inline-block;
+  margin-left: 0.255em;
+  vertical-align: 0.255em;
+  content: "";
+  border-top: 0.3em solid;
+  border-right: 0.3em solid transparent;
+  border-left: 0.3em solid transparent;
+}
+
+.dropdown-toggle-no-arrow::after {
+  display: none !important;
+}
+
+
+/* 
+   GLOBAL STYLES
+ */
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #f9fafc;
+  color: #222;
+  padding-top: 80px;
+}
+
+/* 
+   HEADER STYLES
+ */
+
+.navbar {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.nav-link {
+  color: #333 !important;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link:hover,
+.nav-link.active-link {
+  color: #0d6efd !important;
+}
+
+/* Header icons */
+.header-icon {
+  transition: transform 0.2s ease-in-out;
+}
+
+.header-icon:hover {
+  transform: scale(1.1);
+}
+
+/* 
+   PRODUCT CARD STYLES
+ */
+
+.card {
+  border-radius: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 
+   BUTTONS & BADGES
+ */
+
+button,
+.btn {
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover,
+.btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.badge {
+  font-size: 12px;
+}
+
+/* 
+   CART PAGE POLISH
+ */
+
+.cart-item {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 16px;
+  margin-bottom: 10px;
+  background-color: #fff;
+}
+
+.cart-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* 
+   ORDERS PAGE POLISH
+ */
+
+.order-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  transition: all 0.2s ease-in-out;
+}
+
+.order-card:hover {
+  transform: scale(1.01);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* 
+   EMPTY STATE POLISH
+ */
+
+.text-muted {
+  color: #6c757d !important;
+}
+
+.text-center img {
+  opacity: 0.9;
+  transition: opacity 0.3s ease;
+}
+
+.text-center img:hover {
+  opacity: 1;
+}
+
+.btn-primary {
+  background-color: #0d6efd !important;
+  border: none !important;
+}
+
+.btn-primary:hover {
+  background-color: #0b5ed7 !important;
+}
+
+/* 
+   FOOTER POLISH
+ */
+
+footer {
+  background-color: #fff;
+  border-top: 1px solid #eaeaea;
+  padding: 15px 0;
+  text-align: center;
+  color: #555;
+  font-size: 14px;
+  display: sticky;
+}
+
+.cart-item {
+  border: 1px solid #eaeaea !important;
+  border-radius: 10px !important;
+  background-color: #fff !important;
+  transition: all 0.2s ease-in-out !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.cart-item:hover {
+  transform: scale(1.01);
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+}
+
+.cart-item button {
+  min-width: 30px;
+}

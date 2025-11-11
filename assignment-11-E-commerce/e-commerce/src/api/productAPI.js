@@ -1,7 +1,8 @@
 import axios from 'axios';
 
 // Base URL for the fake store API
-const BASE_URL = 'https://fakestoreapi.com';
+// const BASE_URL = 'https://fakestoreapi.com';
+const BASE_URL = 'http://localhost:8080/api';
 
 //Fetch all products
 export const getAllProducts = async () => {

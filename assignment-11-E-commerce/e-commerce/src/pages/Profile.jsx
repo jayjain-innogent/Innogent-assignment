@@ -1,12 +1,11 @@
 import React from "react";
 
-function Profile() {
+export default function Profile() {
     return (
-        <div className="page">
-            <h2>Profile Page</h2>
-            <p>Your account details and preferences will go here.</p>
+        <div className="container py-4 text-center">
+            <h2>👤 My Profile</h2>
+            <p>This is a placeholder page for future user details.</p>
+            <p>We'll integrate actual user data after backend connection.</p>
         </div>
     );
 }
-
-export default Profile;
