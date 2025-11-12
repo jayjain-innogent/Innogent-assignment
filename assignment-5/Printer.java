@@ -5,6 +5,7 @@ class PrintEvenOdd {
     public void printerEven(int n) throws InterruptedException {
         synchronized (this) {
             try {
+                if (n <= 0) return;
                 while (value <= n) {
                     try {
                         if (value % 2 == 0) {
@@ -19,6 +20,7 @@ class PrintEvenOdd {
                         e.printStackTrace();
                     }
                 }
+                notifyAll();
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -28,6 +30,7 @@ class PrintEvenOdd {
     public void printerOdd(int n) throws InterruptedException {
         synchronized (this) {
             try {
+                if (n <= 0) return;
                 while (value <= n) {
 
                     if (value % 2 == 1) {
@@ -53,11 +56,15 @@ public class Printer {
         PrintEvenOdd print = new PrintEvenOdd();
         int n = args.length > 0 ? Integer.parseInt(args[0]) : 10;
 
+        if (n<=0){
+            throw new IllegalArgumentException("Number must be greater than 0.");
+        }
+
         Thread t1 = new Thread(() -> {
             try {
                 print.printerEven(n);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         });
 
@@ -65,14 +72,14 @@ public class Printer {
             try {
                 print.printerOdd(n);
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Thread.currentThread().interrupt();
             }
         });
 
         t1.start();
         t2.start();
-        // t1.join();
-        // t2.join();
+        t1.join();
+        t2.join();
 
     }
 }

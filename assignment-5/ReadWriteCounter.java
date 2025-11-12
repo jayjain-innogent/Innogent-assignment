@@ -1,66 +1,64 @@
-
 import java.util.concurrent.locks.*;
 
 public class ReadWriteCounter {
     private int count = 0;
-    private final ReadWriteLock lock = new ReentrantReadWriteLock();
-    private final Lock readlock = lock.readLock();
-    private final Lock writelock = lock.writeLock();
+    private final ReadWriteLock lock = new ReentrantReadWriteLock(true); // fair lock
+    private final Lock readLock = lock.readLock();
+    private final Lock writeLock = lock.writeLock();
 
     public void increment() {
-        writelock.lock();
         try {
+            writeLock.lock();
             count++;
         } finally {
-            writelock.unlock();
+            writeLock.unlock();
         }
     }
 
     public int getCount() {
-        readlock.lock();
         try {
+            readLock.lock();
             return count;
         } finally {
-            readlock.unlock();
+            readLock.unlock();
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         ReadWriteCounter counter = new ReadWriteCounter();
 
-        Runnable readTask = new Runnable() {
-            public void run() {
-                for (int i = 0; i < 5; i++) {
-                    System.out.println(Thread.currentThread().getName() + " read: " + counter.getCount());
-                }
-            }
-        };
-        Runnable writeTask = new Runnable() {
-
-            public void run() {
-                for (int i = 0; i < 5; i++) {
-                    counter.increment();
-                    System.out.println(Thread.currentThread().getName() + " increamented");
-                }
-
+        Runnable readTask = () -> {
+            for (int i = 0; i < 5; i++) {
+                int value = counter.getCount();
+                System.out.println(Thread.currentThread().getName() + " read: " + value);
+                try { Thread.sleep(100); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
             }
         };
 
-        Thread read = new Thread(readTask);
-        read.setName("Reader 1");
-        Thread write = new Thread(writeTask);
-        write.setName("Writer 1");
+        Runnable writeTask = () -> {
+            for (int i = 0; i < 5; i++) {
+                counter.increment();
+                System.out.println(Thread.currentThread().getName() + " incremented");
+                try { Thread.sleep(150); } catch (InterruptedException e) { Thread.currentThread().interrupt(); }
+            }
+        };
 
-        Thread read1 = new Thread(readTask);
-        read1.setName("Reader 2");
-        Thread write1 = new Thread(writeTask);
-        write1.setName("Writer 2");
+        Thread reader1 = new Thread(readTask, "Reader 1");
+        Thread reader2 = new Thread(readTask, "Reader 2");
+        Thread writer1 = new Thread(writeTask, "Writer 1");
+        Thread writer2 = new Thread(writeTask, "Writer 2");
 
-        read.start();
-        write.start();
-        read1.start();
-        write1.start();
+        reader1.start();
+        writer1.start();
+        reader2.start();
+        writer2.start();
 
+        // Wait for all to finish
+        reader1.join();
+        reader2.join();
+        writer1.join();
+        writer2.join();
+
+        System.out.println("Final Count: " + counter.getCount());
     }
-
 }

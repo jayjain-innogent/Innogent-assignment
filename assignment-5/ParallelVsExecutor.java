@@ -2,42 +2,38 @@ import java.util.concurrent.*;
 import java.util.stream.IntStream;
 
 public class ParallelVsExecutor {
-    public static void main(String[] args) {
-        int size = 1000000;
+    public static void main(String[] args) throws Exception {
+        int size = 1_000_000; // large number to see time difference
 
-        long start1 = System.currentTimeMillis();
-        IntStream.range(0, size).parallel().forEach(i -> Math.signum(i));
-        long end1 = System.currentTimeMillis();
-        System.out.println("Time taken by Parallel Stream: " + (end1 - start1) + " ms");
+        // Using ExecutorService
+        int cores = Runtime.getRuntime().availableProcessors();
+        ExecutorService executor = Executors.newFixedThreadPool(cores); // 4 threads
+        long startExec = System.currentTimeMillis();
 
-        int threads = Runtime.getRuntime().availableProcessors();
-        ExecutorService executor = Executors.newFixedThreadPool(threads);
-        int chunkSize = size / threads;
-
-        long start2 = System.currentTimeMillis();
-        Future<?>[] futures = new Future[threads];
-        for (int t = 0; t < threads; t++) {
-            int start = t * chunkSize + 1;
-            int end = (t == threads - 1) ? size : start + chunkSize - 1;
-
-            futures[t] = executor.submit(() -> {
-                for (int i = start; i <= end; i++) {
-                    int square = i * i;
-                }
+        for (int i = 1; i <= size; i++) {
+            int num = i;
+            executor.submit(() -> {
+                double sqrt = Math.sqrt(num); // simulate some computation
             });
         }
-
-        for (Future<?> future : futures) {
-            try {
-                future.get();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        long end2 = System.currentTimeMillis();
         executor.shutdown();
-        System.out.println("Time taken by Executor service: " + (end2 - start2) + " ms");
-    }
+        executor.awaitTermination(60, TimeUnit.SECONDS);
 
+
+        long endExec = System.currentTimeMillis();
+        System.out.println("ExecutorService time: " + (endExec - startExec) + " ms");
+        System.out.println("All Executor tasks finished.");
+
+        // Using Parallel Stream
+        long startParallel = System.currentTimeMillis();
+
+        IntStream.rangeClosed(1, size)
+                .parallel()
+                .forEach(n -> {
+                    double sqrt = Math.sqrt(n); // same computation
+                });
+
+        long endParallel = System.currentTimeMillis();
+        System.out.println("Parallel Stream time: " + (endParallel - startParallel) + " ms");
+    }
 }

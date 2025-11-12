@@ -1,11 +1,11 @@
 import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 public class ThreadCoordinationExample {
 
     public static void main(String args[]) throws InterruptedException {
 
         // Number of tasks to wait for
-
         CountDownLatch latch = new CountDownLatch(3);
 
         InitTask dbTask = new InitTask("Database", 2000, latch);
@@ -16,11 +16,13 @@ public class ThreadCoordinationExample {
         new Thread(() -> cacheTask.execute()).start();
         new Thread(() -> serviceTask.execute()).start();
 
-        latch.await(); // Main thread waits here until count reaches zero
-        System.out.println("\n" + Thread.currentThread().getName() + "task Completed");
-
+        // Wait until all tasks finish or timeout (5 seconds)
+        if (!latch.await(5, TimeUnit.SECONDS)) {
+            System.out.println("\nTimeout reached — some tasks didn’t finish!");
+        } else {
+            System.out.println("\n" + Thread.currentThread().getName() + " task Completed");
+        }
     }
-
 }
 
 class InitTask {
@@ -36,16 +38,23 @@ class InitTask {
 
     public void execute() {
         try {
-            System.out.println(name + " initialization started.");
-            Thread.sleep(duration);
-            System.out.println("");
+            // synchronized to prevent console output overlap
+            synchronized (System.out) {
+                System.out.println(name + " initialization started.");
+            }
 
-            System.out.println(name + " initialization completed.");
-            System.out.println("Remaining tasks: " + (latch.getCount() - 1));
+            Thread.sleep(duration);
+
+            synchronized (System.out) {
+                System.out.println(name + " initialization completed.");
+                System.out.println("Remaining tasks: " + (latch.getCount() - 1));
+            }
 
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            System.err.println(name + " was interrupted.");
         } finally {
+            // reduce latch count
             latch.countDown();
         }
     }

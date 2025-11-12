@@ -22,15 +22,22 @@ public class ParkingLotSimulation {
                 Thread.sleep(2000);
 
                 System.err.println(carName + " is leaving the parking Lot");
-
-                parkingSpots.release();
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                parkingSpots.release();
             }
         }
     }
 
     public static void main(String[] args) {
+
+        int n = args.length > 0 ? Integer.parseInt(args[0]) : 10;
+
+        if (n<=0){
+            throw new IllegalArgumentException("Number must be greater than 0.");
+        }
+
         for (int i = 1; i <= 6; i++) {
             Car car = new Car("Car- " + i);
             car.start();
