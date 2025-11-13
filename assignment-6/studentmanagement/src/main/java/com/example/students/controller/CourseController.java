@@ -1,9 +1,6 @@
 package com.example.students.controller;
 
-import com.example.students.dto.CourseNameWithStudentCount;
-import com.example.students.dto.CourseRequestDto;
-import com.example.students.dto.CourseResponseDto;
-import com.example.students.dto.CourseWithStudentCountDto;
+import com.example.students.dto.*;
 import com.example.students.service.CourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,8 +45,8 @@ public class CourseController {
 
     //Update Course By ID
     @PutMapping("/update/{id}")
-    public ResponseEntity<CourseResponseDto> updateById(@RequestBody CourseResponseDto courseResponseDto, @PathVariable Long id){
-        return new ResponseEntity<>(courseService.updateById(courseResponseDto,id), HttpStatus.OK);
+    public ResponseEntity<CourseResponseDto> updateById(@RequestBody CourseUpdateDto courseUpdateDto, @PathVariable Long id){
+        return new ResponseEntity<>(courseService.updateById(courseUpdateDto,id), HttpStatus.OK);
     }
 
     //DELETE

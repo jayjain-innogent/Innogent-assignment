@@ -1,27 +1,22 @@
 package com.example.students.service;
 
 import com.example.students.doa.CourseDao;
-import com.example.students.dto.CourseNameWithStudentCount;
-import com.example.students.dto.CourseRequestDto;
-import com.example.students.dto.CourseResponseDto;
-import com.example.students.dto.CourseWithStudentCountDto;
+import com.example.students.dto.*;
 import com.example.students.entity.Course;
 import com.example.students.mapper.CourseMapper;
-import com.example.students.repository.CourseRepo;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 @Service
 public  class CourseService {
     @Autowired
     private CourseDao courseDao;
 
-    @Transactional
+    
     public void createCourse(CourseRequestDto courseDto){
 
         Course course = CourseMapper.mapToCourse(courseDto);
@@ -51,13 +46,12 @@ public  class CourseService {
         return responseData;
     }
 
-    //Update Student By Id
-    @Transactional
-    public CourseResponseDto updateById(CourseResponseDto courseResponseDto, Long id){
+    //Update Student By id
+    public CourseResponseDto updateById(CourseUpdateDto courseUpdateDto, Long id){
         Course course = courseDao.findById(id);
 
-        if (courseResponseDto.getInstructor() != null){
-            course.setInstructor(courseResponseDto.getInstructor());
+        if (courseUpdateDto.getInstructor() != null){
+            course.setInstructor(courseUpdateDto.getInstructor());
         }
         courseDao.createCourse(course);
         return CourseMapper.mapToCourseDto(course);

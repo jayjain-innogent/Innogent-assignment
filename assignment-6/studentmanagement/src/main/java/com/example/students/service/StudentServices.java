@@ -19,7 +19,7 @@ public class StudentServices {
     @Autowired
     private StudentDao studentDao;
 
-    @Transactional
+
     public StudentDto createStudent(StudentRequestDto student, Long id){
         Course course = studentDao.findCourseById(id);
         student.setCourse(course);
@@ -41,7 +41,6 @@ public class StudentServices {
     }
 
     //UPDATE STUDENTS USING ID
-    @Transactional
     public StudentDto updateStd(StudentDto studentDto,Long id){
         Student std = studentDao.findById(id);
         if (studentDto.getCity() != null){
@@ -56,6 +55,7 @@ public class StudentServices {
         studentDao.createStudent(std);
         return studentDto;
     }
+
     // GET ALL THE STUDENT WITH COURSE
     public List<StudentDto> studentList(){
         List<Student> student = studentDao.studentList();
@@ -67,7 +67,7 @@ public class StudentServices {
         return student_dto;
     }
 
-    @Transactional
+
     //DElETE THE STUDENT BY ID
     public void deleteById(Long id){
         studentDao.deleteStudentById(id);
