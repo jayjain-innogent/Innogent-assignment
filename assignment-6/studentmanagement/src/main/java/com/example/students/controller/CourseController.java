@@ -16,58 +16,56 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    //CREATE
-    @PostMapping("/create")
+    // CREATE COURSE
+    @PostMapping
     public void create(@RequestBody CourseRequestDto course){
         courseService.createCourse(course);
     }
 
-    //GET COURSE DETAILS WITH STUDENT COUNT
-    @GetMapping("/get-course-with-std-cnt")
+    // COURSE DETAIL WITH STUDENT COUNT
+    @GetMapping("/student-count")
     public List<CourseWithStudentCountDto> getCourseDetail(){
         return courseService.getCourseAndStdCnt();
     }
 
-    //GET TOP COURSES
-    @GetMapping("/gettop/{n}")
+    // GET TOP N COURSES
+    @GetMapping("/top/{n}")
     public ResponseEntity<List<CourseWithStudentCountDto>> getTopNCourses(@PathVariable int n){
         return new ResponseEntity<>(courseService.getTopCourse(n), HttpStatus.OK);
     }
 
-    //Fetch All Course Data
-    @GetMapping("/get-all-courses")
+    // FETCH ALL COURSE DATA
+    @GetMapping
     public ResponseEntity<List<CourseResponseDto>> fetchAll() {
         List<CourseResponseDto> data = courseService.fetchAll();
         return new ResponseEntity<>(data, HttpStatus.OK);
     }
 
-
-
-    //Update Course By ID
-    @PutMapping("/update/{id}")
-    public ResponseEntity<CourseResponseDto> updateById(@RequestBody CourseUpdateDto courseUpdateDto, @PathVariable Long id){
+    // UPDATE COURSE BY ID
+    @PutMapping("/{id}")
+    public ResponseEntity<CourseResponseDto> updateById(
+            @RequestBody CourseUpdateDto courseUpdateDto,
+            @PathVariable Long id){
         return new ResponseEntity<>(courseService.updateById(courseUpdateDto,id), HttpStatus.OK);
     }
 
-    //DELETE
-    @DeleteMapping("/delete/{id}")
+    // DELETE COURSE BY ID
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteById(@PathVariable Long id){
         courseService.deleteById(id);
         return ResponseEntity.ok("Course deleted successfully");
     }
 
-    //GET COURSE WITH NO ENROLLMENTS
-    @GetMapping("/no-students-enrolled")
+    // GET COURSES WITH NO STUDENTS
+    @GetMapping("/no-students")
     public ResponseEntity<List<CourseResponseDto>> getCourseWithNoStd(){
         return new ResponseEntity<>(courseService.getCourseWithNoStudent(), HttpStatus.OK);
     }
 
-    //GET COURSE NAME WITH COUNT OF STUDENT
-    @GetMapping("/course-name-stdcount")
+    // GET COURSE NAME + STUDENT COUNT ONLY
+    @GetMapping("/name-student-count")
     public ResponseEntity<List<CourseNameWithStudentCount>> getCourseNameAndStdCnt(){
         return new ResponseEntity<>(courseService.getCourseNameAndStdCnt(), HttpStatus.OK);
     }
-
-
 
 }

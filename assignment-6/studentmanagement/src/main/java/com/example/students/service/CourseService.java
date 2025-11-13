@@ -16,7 +16,7 @@ public  class CourseService {
     @Autowired
     private CourseDao courseDao;
 
-    
+
     public void createCourse(CourseRequestDto courseDto){
 
         Course course = CourseMapper.mapToCourse(courseDto);
