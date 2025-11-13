@@ -28,8 +28,3 @@ class Product:
             f""
             "---------------------------"
         )
-
-
-    def set_id(self):
-        self.id = Product.id_generator
-        Product.id_generator += 1
