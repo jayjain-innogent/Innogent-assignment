@@ -17,19 +17,20 @@ public class StudentService implements StudentRepository {
     }
 
     // Delete student by ID, update ranks
-    public void deleteStudent(int studentId) {
+    public boolean deleteStudent(int studentId) {
         boolean found = false;
+
         Iterator<Student> iter = students.iterator();
         while (iter.hasNext()) {
             if (iter.next().getId() == studentId) {
                 iter.remove();
                 found = true;
+                break;
             }
         }
-        if (!found) {
-            System.out.println("No student found with ID = " + studentId);
-        }
+
         updateRanks();
+        return found;
     }
 
     //Get all students
@@ -40,11 +41,11 @@ public class StudentService implements StudentRepository {
     // Update student ranks based on highest marks
     private void updateRanks() {
         students.sort(Comparator.comparingInt(Student::getMarks).reversed());
-        int rank = 1, prevMarks = -1;
+        int rank = 0, prevMarks = -1;
         for (int i = 0; i < students.size(); i++) {
             Student s = students.get(i);
             if (s.getMarks() != prevMarks)
-                rank = i + 1;
+                rank = rank + 1;
             s.setRank(rank);
             prevMarks = s.getMarks();
         }
@@ -70,7 +71,7 @@ public class StudentService implements StudentRepository {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] p = line.split(",");
-                if (p.length < 8)
+                if (p.length < 8 && p.length > 8)
                     continue; // ignore malformed lines
                 Student s = new Student(
                         Integer.parseInt(p[0]),  // id
@@ -78,10 +79,10 @@ public class StudentService implements StudentRepository {
                         Integer.parseInt(p[2]),  // age
                         Integer.parseInt(p[3]),  // marks
                         p[4],                    // course
-                        Integer.parseInt(p[5])   // year
+                        Integer.parseInt(p[5]),   // year
+                        p[6],                     //status
+                        Integer.parseInt(p[7])    //rank
                 );
-                s.setStatus(p[6]);  //Status
-                s.setRank(Integer.parseInt(p[7])); //Rank
                 students.add(s);
             }
         }

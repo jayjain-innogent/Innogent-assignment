@@ -20,6 +20,17 @@ public class Student {
         this.rank = -1;
     }
 
+    public Student(int id, String name, int classId, int marks, String gender, int age, String status, int rank){
+        this.id = id;
+        this.name = name;
+        this.classId = classId;
+        this.marks = marks;
+        this.gender = gender;
+        this.age = age;
+        this.status = status;
+        this.rank = rank;
+    }
+
     // Getters and setters
     public int getId() {
         return id;

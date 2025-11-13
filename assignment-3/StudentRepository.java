@@ -5,7 +5,7 @@ import java.util.List;
 public interface StudentRepository {
     void addStudent(Student student) throws InvalidAgeException, InvalidMarksException;
 
-    void deleteStudent(int studentId);
+    boolean deleteStudent(int studentId);
 
     List<Student> getAllStudents();
 
