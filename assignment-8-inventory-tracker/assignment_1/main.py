@@ -1,8 +1,10 @@
 LOW_STOCK = 5
 import itertools
 
+#Product Class
 class Product:
     _id_counter = itertools.count(1)
+
     def __init__(self, name, stock, price, location, tags=None):
         self.id = next(Product._id_counter)
         self.name = name
@@ -12,99 +14,137 @@ class Product:
         self.tags = set(tags) if tags else set()
 
     def is_low_stock(self):
-        return self.stock < LOW_STOCK
-
+        return self.stock <= LOW_STOCK
 
     def __str__(self):
-        tags = ', '.join(self.tags) if self.tags else 'None'
+        tags_str = ', '.join(self.tags) if self.tags else 'None'
         return (
-            f"   Id       : {self.id}\n"
-            f"   Name     : {self.name}\n"
-            f"   Stock    : {self.stock}\n"
-            f"   Price    : ₹{self.price:.2f}\n"
-            f"   Location : {self.location}\n"
-            f"   Tags     : {tags}\n"
-            f""
+            f"\n   Id       : {self.id}"
+            f"\n   Name     : {self.name}"
+            f"\n   Stock    : {self.stock}"
+            f"\n   Price    : ₹{self.price:.2f}"
+            f"\n   Location : {self.location}"
+            f"\n   Tags     : {tags_str}\n"
             "---------------------------"
         )
 
 
-    def set_id(self):
-        self.id = Product.id_generator
-        Product.id_generator += 1
-
-
+# Inventory Class
 class Inventory:
     def __init__(self):
         self.products = []
 
-    #Listing all the products
     def list_products(self):
-        if self.products:
-            for p in self.products:
-                print(p)
-        else:
-            print("No products in inventory.")
-
-    #Low on stock warnings. (LOW_STOCK = 5)
-    def low_stack_warning(self):
-        flag = False
+        if not self.products:
+            print("No products found.")
+            return
         for p in self.products:
-            if p.is_Low_stock():
-                print(f"Warning: Low stock for product '{p.name}'. Only {p.stock} left.")
-                flag = True
-        if not flag:
-            print("All products are sufficiently stocked.")
+            print(p)
 
-    #Add product.
+    def low_stock_warning(self):
+        found = False
+        for p in self.products:
+            if p.is_low_stock():
+                print(f"⚠ Low Stock: '{p.name}' → Only {p.stock} left.")
+                found = True
+        if not found:
+            print("All products have sufficient stock.")
+
     def add_product(self, product):
         self.products.append(product)
         print(f"Product '{product.name}' added successfully.")
 
-    #Update stock.
-    def update_stock(self, id, new_stock):
+    def update_stock(self, product_id, new_stock):
         for p in self.products:
-            if p.id == id:
+            if p.id == product_id:
                 p.stock = new_stock
-                print(f"Stock for product '{p.name}' updated to {new_stock}.")
+                print(f"Stock updated → '{p.name}' now has {new_stock}.")
                 return
-        print(f"Product '{p.id}' not found in inventory.")
+        print(f"Product with ID '{product_id}' not found.")
 
-    #Delete product
-    def delete_product(self, id):
+    def delete_product(self, product_id):
         for p in self.products:
-            if p.id == id:
+            if p.id == product_id:
                 self.products.remove(p)
                 print(f"Product '{p.name}' deleted successfully.")
                 return
-        print(f"Product with ID '{id}' not found in inventory.")
-    
-    #Print Total value of all products in stock.
+        print(f"Product with ID '{product_id}' not found.")
+
     def total_inventory_value(self):
-        total_value = sum(p.price * p.stock for p in self.products)
-        print(f"Total inventory value: ₹{total_value:.2f}")
-        return total_value
-    
-    #Applying discount
-    def apply_discount(self, tags, percent=0.5):
+        total = sum(p.price * p.stock for p in self.products)
+        print(f"Total Inventory Value: ₹{total:.2f}")
+        return total
+
+    def apply_discount(self, tags, percent = 0.5):
+        discounted = False
         for p in self.products:
-            if ('clearance' in p.tags) and (tags & p.tags):  # check for matching tags
-                original_price = p.price
+            # Original requirement: discount only if product is clearance + matching tags
+            if "clearance" in p.tags and (tags & p.tags):
+                old_price = p.price
                 p.price *= (1 - percent)
-                print(f"Discounted '{p.name}' from ₹{original_price:.2f} to ₹{p.price:.2f}")
+                print(
+                    f"Discounted '{p.name}' → ₹{old_price:.2f} → ₹{p.price:.2f}"
+                )
+                discounted = True
+
+        if not discounted:
+            print("No clearance products matched the given tags.")
 
 
+
+# Safe Input Helpers
+
+def safe_int(prompt):
+    while True:
+        try:
+            value = int(input(prompt))
+            if value <= 0:
+                print("Enter a positive integer.")
+                continue  
+            return value
+        except ValueError:
+            print("Enter a valid integer.")
+
+
+def safe_float(prompt):
+    while True:
+        try:
+            value = float(input(prompt))
+            if value <= 0:
+                print("Enter a positive number.")
+                continue   
+            return value
+        except ValueError:
+            print("Enter a valid number.")
+
+
+def safe_non_empty(prompt):
+    while True:
+        value = input(prompt).strip()
+        if value:
+            return value
+        print("Input cannot be empty.")
+
+
+
+# Product Creation Input 
 def product_input():
-    name = input("Enter product name: ")
-    stock = int(input("Enter product stock: "))
-    price = float(input("Enter product price: "))
-    location = input("Enter product location: ")
-    tags_input = input("Enter product tags (comma-separated): ")
-    tags = {tag.strip() for tag in tags_input.split(',')} if tags_input else set()
+    name = safe_non_empty("Enter product name: ")
+    stock = safe_int("Enter stock: ")
+    price = safe_float("Enter price: ")
+    location = safe_non_empty("Enter location: ")
+    tags = {
+        tag.strip() for tag in input("Enter tags (comma-separated): ").split(',')
+        if tag.strip()
+    }
     return Product(name, stock, price, location, tags)
 
+
+# Main Program
 def main():
     inventory = Inventory()
+
+    # Preloaded products
     inventory.products = [
     Product("Amul Milk", 20, 50.0, "Shelf-1", {"dairy", "fresh"}),
     Product("Mango", 15, 30.0, "Shelf-2", {"fruit", "seasonal", "clearance"}),
@@ -114,51 +154,60 @@ def main():
     Product("Spinach", 10, 20.0, "Shelf-1", {"vegetable", "fresh"}),
     Product("Parle-G", 60, 5.0, "Shelf-4", {"snack", "grocery"}),
     Product("Dettol Soap", 25, 40.0, "Shelf-6", {"hygiene", "essential", "clearance"}),
-    Product("Coca-Cola", 45, 60.0, "Shelf-5", {"beverage", "refreshing"}),]
+    Product("Coca-Cola", 45, 60.0, "Shelf-5", {"beverage", "refreshing"}),
+    ]
 
-    #User Input Loop
+
     while True:
-        choice = input("""
-        Inventory Management System
-        1. List all products
-        2. Low stock warnings
-        3. Add a new product
-        4. Update product stock
-        5. Delete a product
-        6. Total inventory value
-        7. Apply discount to products by tags
+        print("""
+        ------------ Inventory Management ------------
+        1. List Products
+        2. Low Stock Warnings
+        3. Add Product
+        4. Update Stock
+        5. Delete Product
+        6. Total Inventory Value
+        7. Apply Discount by Tags
         8. Exit
-                       
-        Enter your choice: """)
+        ----------------------------------------------
+        """)
+
+        choice = input("Enter your choice (1-8): ").strip()
 
         if choice == '1':
             inventory.list_products()
+
         elif choice == '2':
-            inventory.low_stack_warning()
+            inventory.low_stock_warning()
+
         elif choice == '3':
             product = product_input()
             inventory.add_product(product)
+
         elif choice == '4':
-            id = int(input("Enter product ID to update stock: "))
-            new_stock = int(input("Enter new stock value: "))
-            inventory.update_stock(id, new_stock)
+            pid = safe_int("Enter product ID: ")
+            stock = safe_int("Enter new stock: ")
+            inventory.update_stock(pid, stock)
+
         elif choice == '5':
-            id = int(input("Enter product ID to delete: "))
-            inventory.delete_product(id)
+            pid = safe_int("Enter product ID: ")
+            inventory.delete_product(pid)
+
         elif choice == '6':
             inventory.total_inventory_value()
+
         elif choice == '7':
-            tags_input = input("Enter tags for discount (comma-separated): ")
-            tags = {tag.strip() for tag in tags_input.split(',')} if tags_input else set()
-            percent = float(input("Enter discount percentage (default 50%): ") or 50)
-            inventory.apply_discount(tags, percent/100)
+            tag_input = input("Enter tags (comma-separated): ").strip()
+            tags = {t.strip() for t in tag_input.split(",") if t.strip()}
+            inventory.apply_discount(tags)
+
         elif choice == '8':
-            print("Exiting Inventory Management System.")
+            print("Exiting system. Goodbye!")
             break
+
         else:
-            print("Invalid choice. Please try again.")
+            print("Invalid choice. Choose between 1–8.")
+
 
 if __name__ == "__main__":
     main()
-    
-
